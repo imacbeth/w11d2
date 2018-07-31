@@ -19,4 +19,9 @@ Player.prototype.selectCategory = function (category) {
   }
 };
 
+Player.prototype.playCard = function (category) {
+  const topCard = this.cards.pop();
+  return topCard[category];
+};
+
 module.exports = Player;

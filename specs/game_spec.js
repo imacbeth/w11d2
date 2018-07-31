@@ -16,21 +16,40 @@ describe("Game", function () {
     card2 = new Card("Batman", 10, 5, 6);
     player1 = new Player("Jesus");
     player2 = new Player("Iona");
-    game = new Game(player1, player2);
   });
 
-  it("should have player1", function () {
-    const result = game.player1.name;
-    assert.strictEqual(result, "Jesus");
-  });
-  it("should have player2", function () {
-    const result = game.player2.name;
-    assert.strictEqual(result, "Iona");
+  it("should start with no players", function(){
+    const result = game.players.length;
+    assert.strictEqual(result, 0);
   });
 
-  it("should have a deck", function () {
+  it("should add players", function(){
+    game.addPlayer(player1);
+    game.addPlayer(player2);
+    const result = game.players.length;
+    assert.strictEqual(result, 2);
+  });
+
+  it("should have a deck that starts empty", function () {
     const result = game.deck.length;
     assert.deepStrictEqual(result, 0);
   });
 
+  it("should be able to add cards to deck",function () {
+    game.addCard(card1);
+    game.addCard(card2);
+    const result = game.deck.length;
+    assert.strictEqual(result, 2);
+  });
+
+  it("should be able to deal", function(){
+    game.addCard(card1);
+    game.addCard(card2);
+    game.dealCard(player1);
+    game.dealCard(player2);
+    const result = game.deck.length;
+    assert.strictEqual(result, 0);
+    const result2 = player1.cards.length;
+    assert.strictEqual(result2, 1);
+  });
 });
